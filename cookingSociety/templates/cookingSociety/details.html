@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cooking Society</title>
+</head>
+<body>
+    <h1>{{ cooker.name }}</h1>
+    <p>{{ str(cooker) }}</p>
+    {% for dish in dishlist %}
+        {% if cooker.ableCookSupper(dish) %}
+            <li>{{ str(dish) }}</li>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
