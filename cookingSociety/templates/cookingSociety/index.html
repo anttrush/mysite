@@ -10,21 +10,24 @@
         <p>we have Cookers:</p>
         <ul>
         {% for cooker in cookerlist %}
-            <li><a href="/cookingSociety/{{ cooker.id }}/">{{ cooker.name }}</a></li>
+            <li><a href="/cookingSociety/cooker/{{ cooker.id }}/">{{ cooker.name }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No cookers are available.</p>
     {% endif %}
+    <button><a href="/cookingSociety/cooker_create">create</a></button>
+
     {% if dishlist %}
         <p>we have dishes:</p>
         <ul>
         {% for dish in dishlist %}
-            <li><a href="/cookingSociety/{{ dish.id }}/">{{ dish.name }}</a></li>
+            <li><a href="/cookingSociety/dish/{{ dish.id }}/">{{ dish.name }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No dishes are available.</p>
     {% endif %}
+    <button>create</button>
 </body>
 </html>

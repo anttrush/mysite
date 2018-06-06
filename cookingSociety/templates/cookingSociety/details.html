@@ -6,11 +6,13 @@
 </head>
 <body>
     <h1>{{ cooker.name }}</h1>
-    <p>{{ str(cooker) }}</p>
-    {% for dish in dishlist %}
-        {% if cooker.ableCookSupper(dish) %}
-            <li>{{ str(dish) }}</li>
-        {% endif %}
-    {% endfor %}
+    <p>{{ cooker }}</p>
+    {% if supdishlist %}
+        {% for dish in supdishlist %}
+            <li>{{ dish }}</li>
+        {% endfor %}
+    {% else %}
+        <p>No supdish.</p>
+    {% endif %}
 </body>
 </html>
