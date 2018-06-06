@@ -5,22 +5,23 @@
     <title>cooker create</title>
 </head>
     <p>New Cooker:</p>
-    <form action="/cookingSociety/cooker_new/" method="post">
+    <form action="{% url 'cookingSociety:cooker_new' %}" method="post">
+        {% csrf_token %}
         <label>name</label>
-        <input type="text" name="name">
+        <input type="text" name="name" /><br />
         <label>炒</label>
-        <input type="text" name="skill1">
+        <input type="text" name="skill1" /><br />
         <label>烤</label>
-        <input type="text" name="skill2">
+        <input type="text" name="skill2" /><br />
         <label>煮</label>
-        <input type="text" name="skill3">
+        <input type="text" name="skill3" /><br />
         <label>蒸</label>
-        <input type="text" name="skill4">
+        <input type="text" name="skill4" /><br />
         <label>炸</label>
-        <input type="text" name="skill5">
+        <input type="text" name="skill5" /><br />
         <label>切</label>
-        <input type="text" name="skill6">
-        <input type="submit" value="创建">
+        <input type="text" name="skill6" /><br />
+        <input type="submit" value="创建" />
     </form>
 <body>
 

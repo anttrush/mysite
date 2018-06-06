@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Cooker
 from .models import Dish
 from django.views.decorators.csrf import csrf_protect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -23,7 +25,7 @@ def cooker_detail(request, cooker_id):
 def cooker_create(request):
     return render(request, 'cookingSociety/cookercreate.html')
 
-@csrf_protect
+# @csrf_protect
 def cooker_new(request):
     args = request.POST # dict
     cooker = Cooker()
@@ -32,19 +34,20 @@ def cooker_new(request):
     else:
         cooker.name = "XiaoWang8"
     if 'skill1' in args:
-        cooker.skill1 = int(args['skiil1'])
+        cooker.skill1 = int(args['skill1'])
     if 'skill2' in args:
-        cooker.skill2 = int(args['skiil2'])
+        cooker.skill2 = int(args['skill2'])
     if 'skill3' in args:
-        cooker.skill3 = int(args['skiil3'])
+        cooker.skill3 = int(args['skill3'])
     if 'skill4' in args:
-        cooker.skill4 = int(args['skiil4'])
+        cooker.skill4 = int(args['skill4'])
     if 'skill5' in args:
-        cooker.skill5 = int(args['skiil5'])
+        cooker.skill5 = int(args['skill5'])
     if 'skill6' in args:
-        cooker.skill6 = int(args['skiil6'])
+        cooker.skill6 = int(args['skill6'])
     cooker.save()
-    cookerlist = Cooker.objects.all()
-    dishlist = Dish.objects.all()
-    context = {'cookerlist': cookerlist, 'dishlist': dishlist}
-    return render(request, 'cookingSociety/index.html', context)
+    # cookerlist = Cooker.objects.all()
+    # dishlist = Dish.objects.all()
+    # context = {'cookerlist': cookerlist, 'dishlist': dishlist}
+    # return render(request, 'cookingSociety/index.html', context)
+    return  HttpResponseRedirect(reverse('cookingSociety:index'))

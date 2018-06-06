@@ -10,7 +10,8 @@
         <p>we have Cookers:</p>
         <ul>
         {% for cooker in cookerlist %}
-            <li><a href="/cookingSociety/cooker/{{ cooker.id }}/">{{ cooker.name }}</a></li>
+            <!--li><a href="/cookingSociety/cooker/{{ cooker.id }}/">{{ cooker.name }}</a></li-->
+            <li><a href="{% url 'cookingSociety:cooker_detail' cooker.id %}">{{ cooker.name }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
@@ -28,6 +29,6 @@
     {% else %}
         <p>No dishes are available.</p>
     {% endif %}
-    <button>create</button>
+    <button><a href="/cookingSociety/dish_create">create</a></button>
 </body>
 </html>
