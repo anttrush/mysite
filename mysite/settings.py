@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls.apps.PollsConfig',
     'cookingSociety.apps.CookingsocietyConfig',
+    'devprofs.apps.DevprofsConfig',
 ]
 
 MIDDLEWARE = [
