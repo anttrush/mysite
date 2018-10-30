@@ -5,43 +5,54 @@
     <title>devprofs_index</title>
 </head>
 <body>
-{% if dev_list %}
-    <p>Developers</p>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Score</th>
-        </tr>
-        {% for dev in dev_list %}
-        <tr>
-            <td><a href="/devprofs/developer/{{ dev.dev_id }}">{{dev.dev_name}}</a></td>
-            <td>{{dev.dev_score_All}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-{% else %}
-    <p>No developers are available.</p>
-{% endif %}
+<div class="body">
+    <div class="developers">
+        <h2>Developers</h2>
+        {% if dev_list %}
+        <table class="developers">
+            <tr>
+                <th>Name</th>
+                <th>Followers</th>
+                <th>Own Projects</th>
+            </tr>
+            {% for dev in dev_list %}
+            <tr>
+                <td><a href="/devprofs/developer/{{ dev.dev_id }}">{{dev.dev_name}}</a></td>
+                <td>{{ dev.dev_follower_Number }}</td>
+                {% if dev.ownproj != -1 %}
+                <td><a href="/devprofs/project/{{ dev.ownproj.proj_id }}">{{dev.ownproj.proj_name}}</a></td>
+                {% else %}
+                <td></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No developers are available.</p>
+        {% endif %}
+    </div>
 
-{% if proj_list %}
-    <p>Projects</p>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Stars</th>
-        </tr>
-        {% for proj in proj_list %}
-        <tr>
-            <td><a href="/devprofs/project/{{ proj.proj_id }}">{{proj.proj_name}}</a></td>
-            <td>{{proj.proj_stars}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-{% else %}
-    <p>No developers are available.</p>
-{% endif %}
-
-
-
+    <div class="projects">
+        {% if proj_list %}
+        <h2>Projects</h2>
+        <table class="projects">
+            <tr>
+                <th>Name</th>
+                <th>Stars</th>
+                <th>Owner</th>
+            </tr>
+            {% for proj in proj_list %}
+            <tr>
+                <td><a href="/devprofs/project/{{ proj.proj_id }}">{{proj.proj_name}}</a></td>
+                <td>{{proj.proj_stars}}</td>
+                <td><a href="/devprofs/developer/{{ proj.proj_owner }}">{{proj.projowername}}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No developers are available.</p>
+        {% endif %}
+    </div>
+</div>
 </body>
 </html>

@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.views import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls')),
-    path('cookingSociety/', include('cookingSociety.urls')),
     path('devprofs/', include('devprofs.urls')),
+    path('favicon.ico', serve, {'path': 'static/favicon.ico'}),
 ]

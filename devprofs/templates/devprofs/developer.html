@@ -3,53 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <title>devprofs_developer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
 </head>
 <body>
+<div class="body">
+    <div class="title">
+        <h1>{{ dev.dev_name }}</h1>
+    </div>
+    <div class="basic profile">
+        <h2>Developer basic profile</h2>
+        <table class="basic profile">
+            <tr>
+                <td>Github site:</td>
+                <td><a href="https://github.com/{{dev.dev_name}}">https://github.com/{{dev.dev_name}}</a></td>
+            </tr>
+            <tr>
+                <td>Active in:</td>
+                <td>
+                    {% for proj in inprojs %}
+                    <a href="/devprofs/project/{{ proj.proj_id }}">{{proj.proj_name}}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Own Projects:</td>
+                <td>
+                    {% for proj in ownprojs %}
+                    <a href="/devprofs/project/{{ proj.proj_id }}">{{proj.proj_name}}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="scores">
+        <h2>Developer score</h2>
+        <div class="coding abilities">
+            <h3>Coding Abilities</h3>
+            <table class="coding-abilities">
+                <tr>
+                    <td>
+                        <table class="coding-abilities-data">
+                <tr>
+                    <th>Class</th>
+                    <th>Score</th>
+                </tr>
+                <tr>
+                    <td>Documentation </td>
+                    <td>{{ dev.dev_score_Documentation  }}</td>
+                </tr>
+                <tr>
+                    <td>CodeStyle </td>
+                    <td>{{ dev.dev_score_CodeStyle  }}</td>
+                </tr>
+                <tr>
+                    <td>Performance </td>
+                    <td>{{ dev.dev_score_Performance  }}</td>
+                </tr>
+                <tr>
+                    <td>BestPractices </td>
+                    <td>{{ dev.dev_score_BestPractices  }}</td>
+                </tr>
+                <tr>
+                    <td>Security </td>
+                    <td>{{ dev.dev_score_Security  }}</td>
+                </tr>
+                <tr>
+                    <td>Multithreading </td>
+                    <td>{{ dev.dev_score_Multithreading  }}</td>
+                </tr>
+                <tr>
+                    <td>Design </td>
+                    <td>{{ dev.dev_score_Design  }}</td>
+                </tr>
+                <tr>
+                    <td>ErrorProne </td>
+                    <td>{{ dev.dev_score_ErrorProne  }}</td>
+                </tr>
+            </table>
+                    </td>
+                    <td>
+                        <div class="coding-abilities-radar" id="coding-abilities-radar" style="width:300px; height:300px">
+                        </div>
+                    </td>
+                </tr>
 
-<h1>{{ dev.dev_name }}</h1>
-<h2>Developer basic profile:</h2>
-    <p>balabala</p>
-<h2>Developer score:</h2>
-    <table>
-        <tr>
-            <td>Class</td>
-            <td>Score</td>
-        </tr>
-        <tr>
-            <td>Documentation </td>
-            <td>{{ dev.dev_score_Documentation  }}</td>
-        </tr>
-        <tr>
-            <td>CodeStyle </td>
-            <td>{{ dev.dev_score_CodeStyle  }}</td>
-        </tr>
-        <tr>
-            <td>Performance </td>
-            <td>{{ dev.dev_score_Performance  }}</td>
-        </tr>
-        <tr>
-            <td>BestPractices </td>
-            <td>{{ dev.dev_score_BestPractices  }}</td>
-        </tr>
-        <tr>
-            <td>Security </td>
-            <td>{{ dev.dev_score_Security  }}</td>
-        </tr>
-        <tr>
-            <td>Multithreading </td>
-            <td>{{ dev.dev_score_Multithreading  }}</td>
-        </tr>
-        <tr>
-            <td>Design </td>
-            <td>{{ dev.dev_score_Design  }}</td>
-        </tr>
-        <tr>
-            <td>ErrorProne </td>
-            <td>{{ dev.dev_score_ErrorProne  }}</td>
-        </tr>
-    </table>
 
+            </table>
 
-
+        </div>
+        <div class="API frequency">
+            <h3>API frequency</h3>
+            <table class="API frequency">
+            <tr>
+                <th>Class</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td>LanguageFeature</td>
+                <td>{{ dev.dev_score_API1  }}</td>
+            </tr>
+            <tr>
+                <td>NetWork </td>
+                <td>{{ dev.dev_score_API2  }}</td>
+            </tr>
+            <tr>
+                <td>I/O </td>
+                <td>{{ dev.dev_score_API3  }}</td>
+            </tr>
+            <tr>
+                <td>Math </td>
+                <td>{{ dev.dev_score_API4  }}</td>
+            </tr>
+            <tr>
+                <td>Database </td>
+                <td>{{ dev.dev_score_API5  }}</td>
+            </tr>
+            <tr>
+                <td>Multithreading </td>
+                <td>{{ dev.dev_score_API6  }}</td>
+            </tr>
+            <tr>
+                <td>Text </td>
+                <td>{{ dev.dev_score_API7  }}</td>
+            </tr>
+            <tr>
+                <td>Other </td>
+                <td>{{ dev.dev_score_API8  }}</td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('coding-abilities-radar'));
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '基础雷达图'
+        },
+        tooltip: {},
+        legend: {
+            data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+        },
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    backgroundColor: '#999',
+                    borderRadius: 3,
+                    padding: [3, 5]
+               }
+            },
+            indicator: [
+               { name: '销售（sales）', max: 6500},
+               { name: '管理（Administration）', max: 16000},
+               { name: '信息技术（Information Techology）', max: 30000},
+               { name: '客服（Customer Support）', max: 38000},
+               { name: '研发（Development）', max: 52000},
+               { name: '市场（Marketing）', max: 25000}
+            ]
+        },
+        series: [{
+            name: '预算 vs 开销（Budget vs spending）',
+            type: 'radar',
+            // areaStyle: {normal: {}},
+            data : [
+                {
+                    value : [4300, 10000, 28000, 35000, 50000, 19000],
+                    name : '预算分配（Allocated Budget）'
+                },
+                 {
+                    value : [5000, 14000, 28000, 31000, 42000, 21000],
+                    name : '实际开销（Actual Spending）'
+                }
+            ]
+        }]
+    };
+    // 为echarts对象加载数据
+    myChart.setOption(option);;
+</script>
 </body>
 </html>
