@@ -20,5 +20,5 @@ from django.contrib.staticfiles.views import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('devprofs/', include('devprofs.urls')),
-    path('favicon.ico', serve, {'path': 'static/favicon.ico'}),
+    path('favicon.ico', serve, {'path': 'image/favicon.ico'}),
 ]
