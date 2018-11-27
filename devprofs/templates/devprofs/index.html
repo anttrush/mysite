@@ -9,21 +9,17 @@
     <div class="developers">
         <h2>Developers</h2>
         {% if dev_list %}
-        <table class="developers">
+        <table class="developers" width="600">
             <tr>
-                <th>Name</th>
-                <th>Followers</th>
-                <th>Own Projects</th>
+                <th width="280">Name</th>
+                <th width="160">Follower Numbers</th>
+                <th width="160">Contributed Lines</th>
             </tr>
             {% for dev in dev_list %}
             <tr>
                 <td><a href="/devprofs/developer/{{ dev.dev_id }}">{{dev.dev_name}}</a></td>
-                <td>{{ dev.dev_follower_Number }}</td>
-                {% if dev.ownproj != -1 %}
-                <td><a href="/devprofs/project/{{ dev.ownproj.proj_id }}">{{dev.ownproj.proj_name}}</a></td>
-                {% else %}
-                <td></td>
-                {% endif %}
+                <td align="center">{{ dev.dev_follower_Number }}</td>
+                <td align="center">{{ dev.dev_score_cLOC }}</td>
             </tr>
             {% endfor %}
         </table>
@@ -32,7 +28,7 @@
         {% endif %}
     </div>
 
-    <div class="projects">
+    <!--div class="projects">
         {% if proj_list %}
         <h2>Projects</h2>
         <table class="projects">
@@ -52,7 +48,7 @@
         {% else %}
         <p>No developers are available.</p>
         {% endif %}
-    </div>
+    </div-->
 </div>
 </body>
 </html>
