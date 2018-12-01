@@ -3,11 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>devprofs_index</title>
+    <style type="text/css">
+.pagination{
+    display: inline-block;
+}
+.pagination a:first-child, .pagination em:first-child, .pagination span:first-child {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    margin-left: 0;
+}
+.pagination .current, .pagination .current:hover {
+    background-color: #0366d6;
+    border-color: #0366d6;
+    color: #fff;
+    z-index: 3;
+}
+.pagination .disabled, .pagination .disabled:hover {
+    cursor: default;
+}
+.pagination a, .pagination em, .pagination span {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    background: #fff;
+    border: 1px solid #e1e4e8;
+    color: #0366d6;
+    cursor: pointer;
+    float: left;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    margin-left: -1px;
+    padding: 7px 12px;
+    position: relative;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+a {
+    color: #0366d6;
+    text-decoration: none;
+    background-color: initial;
+}
+* {
+    box-sizing: border-box;
+}
+
+    </style>
 </head>
 <body>
 <div class="body">
     <div class="developers">
         <h2>Developers</h2>
+        <!--
         {% if dev_list %}
         <table class="developers" width="600">
             <tr>
@@ -26,6 +74,71 @@
         {% else %}
         <p>No developers are available.</p>
         {% endif %}
+        -->
+        <nav aria-label="Page navigation">
+            {% if dev_list %}
+            <table class="developers" width="600">
+                <tr>
+                    <th width="280">Name</th>
+                    <th width="160">Follower Numbers</th>
+                    <th width="160">Contributed Lines</th>
+                </tr>
+                {% for dev in dev_list %}
+                <tr>
+                    <td><a href="/devprofs/developer/{{ dev.dev_id }}">{{dev.dev_name}}</a></td>
+                    <td align="center">{{ dev.dev_follower_Number }}</td>
+                    <td align="center">{{ dev.dev_score_cLOC }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p>No developers are available.</p>
+            {% endif %}
+
+            <div class="pagination">
+                {% if dev_list.has_previous %}
+                    <a href="?page={{ dev_list.previous_page_number }}" class="previous_page">Previous</a>
+                {% else %}
+                    <span class="previous_page disabled">Previous</span>
+                {% endif %}
+                {% if 3 < dev_list.number|add:-2 %}
+                    <a href="?page=1">1</a>
+                    <a href="?page=2">2</a>
+                    <span class="disabled">……</span>
+                {% elif 2 < dev_list.number|add:-2 %}
+                    <a href="?page=1">1</a>
+                    <a href="?page=2">2</a>
+                {% elif 1 < dev_list.number|add:-2 %}
+                    <a href="?page=1">1</a>
+                {% endif %}
+
+                {% for pg in dev_list.paginator.page_range %}
+                    {% if pg >= dev_list.number|add:-2 and pg <= dev_list.number|add:2 %}
+                        {% if dev_list.number == pg %}
+                            <em class="current disabled">{{ pg }}</em>
+                        {% else %}
+                            <a href="?page={{ pg }}">{{ pg }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if dev_list.number|add:2 < dev_list.paginator.num_pages|add:-2 %}
+                    <span class="disabled">……</span>
+                    <a href="?page={{ dev_list.paginator.num_pages|add:-1 }}">{{ dev_list.paginator.num_pages|add:-1 }}</a>
+                    <a href="?page={{ dev_list.paginator.num_pages }}">{{ dev_list.paginator.num_pages }}</a>
+                {% elif dev_list.number|add:2 < dev_list.paginator.num_pages|add:-1 %}
+                    <a href="?page={{ dev_list.paginator.num_pages|add:-1 }}">{{ dev_list.paginator.num_pages|add:-1 }}</a>
+                    <a href="?page={{ dev_list.paginator.num_pages }}">{{ dev_list.paginator.num_pages }}</a>
+                {% elif dev_list.number|add:2 < dev_list.paginator.num_pages %}
+                    <a href="?page={{ dev_list.paginator.num_pages }}">{{ dev_list.paginator.num_pages }}</a>
+                {% endif %}
+                {% if dev_list.has_next %}
+                    <a href="?page={{ dev_list.next_page_number }}" class="next_page">Next</a>
+                {% else %}
+                    <span class="next_page disabled">Next</span>
+                {% endif %}
+            </div>
+        </nav>
     </div>
 
     <!--div class="projects">
